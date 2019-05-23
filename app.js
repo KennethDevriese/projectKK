@@ -10,21 +10,35 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var app = express();
+const cron = require('node-cron');
 const { exec } = require('child_process');
 const fs = require("fs");
 
-
-exec('./getData.sh', (err, stdout, stderr) => {
-  if (err) {
-    console.error(`exec error: ${err}`);
-    return;
-  }
-console.log(String(stdout)); 
+var tempSchema = new mongoose.Schema({temp: Number});
+var Temp = mongoose.model('temp', tempSchema);
+//herlaad elke minuut
+cron.schedule('* * * * *',() =>{
+  exec('./getData.sh', (err, stdout, stderr) => {
+    if (err) {
+      console.error(`exec error: ${err}`);
+      return;
+    }
+    var tempNew = new Temp({temp: stdout});
+    tempNew.save(function(err){
+      if(err)throw err;
+      console.log("temp saved!");
+    }); 
+  });
 });
-mongoose.connect("mongodb+srv://admin:Project123@projectkk-qrdxb.azure.mongodb.net/test?retryWrites=true", function(err) {
+mongoose.connect("mongodb+srv://admin:Project123@projectkk-qrdxb.azure.mongodb.net/temperatuur?retryWrites=true", function(err) {
     if (err) throw err;
     console.log("Successfully connected to mongodb");
 
+});
+//weergeven database
+Temp.find(null, function(err,docs){
+  if(err)throw err;
+  console.log(docs);
 });
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
