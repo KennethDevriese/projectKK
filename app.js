@@ -10,10 +10,21 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var app = express();
+const { exec } = require('child_process');
+const fs = require("fs");
 
+
+exec('./getData.sh', (err, stdout, stderr) => {
+  if (err) {
+    console.error(`exec error: ${err}`);
+    return;
+  }
+console.log(String(stdout)); 
+});
 mongoose.connect("mongodb+srv://admin:Project123@projectkk-qrdxb.azure.mongodb.net/test?retryWrites=true", function(err) {
     if (err) throw err;
     console.log("Successfully connected to mongodb");
+
 });
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
