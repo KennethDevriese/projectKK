@@ -3,29 +3,13 @@ $(window).on("load", function(){
         setTimeout("location.reload(true);",timeoutPeriod);
     }
     window.onload = timedRefresh(60000);
-    var mongoose = require('mongoose');
-    var Row,Cells;
-    var oTable = document.getElementById("tabel");
-    var temp;
+    var oTable = document.getElementById("tempTabel");
+    var temp = oTable.innerText.split(',');
     var arr = [];
-    var tempSchema = new mongoose.Schema({temp: Number});
-    var Temp = mongoose.model('temp', tempSchema);
-    var temp;
-      Temp.find(null, function(err,docs){
-        if(err)throw err;
-        temp = docs;
-        console.log(temp);
-      });
-      for(var i = 0;i<temp.length;i++){
-        var row = oTable.insertRow();
-        row.id = "row";
-        var cell = row.insertCell(0);
-        cell.innerHTML = temp[i];
-        var arr2 = [i+1,parseInt(temp[i])];
-        arr.push(arr2);
-      }
-    //- Row = document.getElementById("row");
-    //- Cells = Row.getElementsByTagName("td");
+    for(var i = 0;i<temp.length;i++){
+      var arr2 = [i+1,parseInt(temp[i])];
+      arr.push(arr2);
+    }
     
     google.charts.load('current', {'packages':['line']});
     google.charts.setOnLoadCallback(drawChart);
