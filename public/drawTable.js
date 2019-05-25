@@ -15,8 +15,8 @@ $(window).on("load", function(){
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
       var data = new google.visualization.DataTable();
-      data.addColumn('number', 'Time');
-    data.addColumn('number', 'temperature');
+      data.addColumn('number', 'Tijd');
+    data.addColumn('number', 'temperatuur');
     data.addRows(arr);
     var options = {
       chart: {

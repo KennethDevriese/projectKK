@@ -1,15 +1,28 @@
 var express = require('express');
+var app = express();
 var router = express.Router();
 var mongoose = require('mongoose');
 var cron = require('node-cron');
 var tempSchema = new mongoose.Schema({temp: Number});
 var Temp = mongoose.model('temp', tempSchema);
 const { exec } = require('child_process');
+var http = require('http').Server(app);
+var io = require('socket.io').listen(http);
+//var cfg = require('./config.json');
+var tw = require('node-tweet-stream')//(cfg);
 var temperatuur = [];
+//socket.io
+io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    console.log('message: ' + msg);
+  });
+});
+//connectie met database
 mongoose.connect("mongodb+srv://admin:Project123@projectkk-qrdxb.azure.mongodb.net/temperatuur?retryWrites=true", function(err) {
     if (err) throw err;
     //console.log("Successfully connected to mongodb");
   });
+//timer dat om de minuut onze file execute
 cron.schedule('* * * * *',() =>{
   exec('./getData.sh', (err, stdout, stderr) => {
     if (err) {
@@ -31,10 +44,8 @@ router.get('/', function(req, res, next) {
     for(var i = 0; i< docs.length;i++){
       temperatuur.push(docs[i].temp);
     }
-    console.log(temperatuur[0].temp);
-    res.render('index', { temp: temperatuur, title: 'express' });
+    res.render('index', { temp: temperatuur, title: 'Dataset' });
     });
-// //weergeven database 
 });
 
 module.exports = router;

@@ -2,9 +2,21 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Welkom bij het project van Kenneth en Kamiel
   p(style= 'display:none',id='tempTabel') #{temp}
   div(id="linechart_material" style="width: 900px; height: 500px")
   script(type="text/javascript" src="https://www.gstatic.com/charts/loader.js")
   script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+  script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
   script(type="text/javascript" src="./drawTable.js")
+  script(src="socket.io.js")
+  //- script.
+  //-   $(function () {
+  //-     var socket = io();
+  //-     $('form').submit(function(e){
+  //-       e.preventDefault(); // prevents page reloading
+  //-       socket.emit('chat message', $('#m').val());
+  //-       $('#m').val('');
+  //-         return false;
+  //-     });
+  //-   });

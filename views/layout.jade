@@ -1,8 +1,13 @@
 doctype html
+include mixins
 html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
+    link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
+    body(style="padding-bottom:10rem;")
+    +nav("ProjectKK", "dropdown_menu")
+      +nav_item( "/", "active" ) Home
+      +nav_item( "support" ) Support
     block content
-    
+    block support
