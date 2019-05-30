@@ -1,7 +1,8 @@
 extends layout
 block content
     h1= title
-    p heb je vragen voor ons stel ze hier!!
+    p heb je vragen voor ons stel ze hier!
+    ul(id="messages")
     form(action="")
         input(type="text", autocomplete='off',placeholder='ask your question here!', id="m")
         button(type='submit') send
