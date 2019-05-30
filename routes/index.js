@@ -20,7 +20,7 @@ io.on('connection', function(socket){
 //connectie met database
 mongoose.connect("mongodb+srv://admin:Project123@projectkk-qrdxb.azure.mongodb.net/temperatuur?retryWrites=true", function(err) {
     if (err) throw err;
-    //console.log("Successfully connected to mongodb");
+    console.log("Successfully connected to mongodb");
   });
 //timer dat om de minuut onze file execute
 cron.schedule('* * * * *',() =>{
