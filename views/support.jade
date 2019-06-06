@@ -10,6 +10,7 @@ block content
     script(src="./browserMqtt.js")
     script(src="socket.io.js")
     script.
+        //connectie met mqtt maken    
         var client = mqtt.connect("ws://iot.eclipse.org:80/ws") 
         client.subscribe("mqtt/ProjectKK")
         client.on("message",function (topic, payload){
@@ -17,6 +18,7 @@ block content
             $("#messages").append($('<li>').text("mqtt: "+ payload));
             //client.end()
         });
+        //bericht via socket.io maken
         $(function () {
             var socket = io();
             $('form').submit(function(e){
