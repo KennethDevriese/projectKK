@@ -7,8 +7,16 @@ block content
         input(type="text", autocomplete='off',placeholder='ask your question here!', id="m")
         button(type='submit') send
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+    script(src="./browserMqtt.js")
     script(src="socket.io.js")
     script.
+        var client = mqtt.connect("ws://iot.eclipse.org:80/ws") 
+        client.subscribe("mqtt/ProjectKK")
+        client.on("message",function (topic, payload){
+            console.log([topic,payload].join(": "))
+            $("#messages").append($('<li>').text(payload));
+            //client.end()
+        });
         $(function () {
             var socket = io();
             $('form').submit(function(e){
@@ -19,5 +27,6 @@ block content
             });
             socket.on('chat message', function(msg){
             $('#messages').append($('<li>').text(msg));
+            client.publish("mqtt/ProjectKK",msg);
             });
         });
