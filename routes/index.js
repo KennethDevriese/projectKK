@@ -8,8 +8,6 @@ var Temp = mongoose.model('temp', tempSchema);
 const { exec } = require('child_process');
 var http = require('http').Server(app);
 var io = require('socket.io').listen(http);
-//var cfg = require('./config.json');
-var tw = require('node-tweet-stream')//(cfg);
 var temperatuur = [];
 //socket.io
 io.on('connection', function(socket){
@@ -17,6 +15,7 @@ io.on('connection', function(socket){
     console.log('message: ' + msg);
   });
 });
+  
 //connectie met database
 mongoose.connect("mongodb+srv://admin:Project123@projectkk-qrdxb.azure.mongodb.net/temperatuur?retryWrites=true", function(err) {
     if (err) throw err;

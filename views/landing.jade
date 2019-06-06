@@ -2,8 +2,8 @@ doctype html
 html
   head
     title= title
-    link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
-    link(rel="stylesheet", href="/stylesheets/style.css")    
+    link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
+    link(rel="stylesheet", href="/stylesheets/style.css")    ;
   body
     div.row
         div.col-md-4.col-md-offset-4.landing-body
@@ -21,6 +21,3 @@ html
                         | #{successMessage}
             block content
 
-    block importScripts
-        script(src="/javascripts/jquery.min.js")
-        script(src="/javascripts/bootstrap.min.js")
