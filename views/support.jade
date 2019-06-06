@@ -14,7 +14,7 @@ block content
         client.subscribe("mqtt/ProjectKK")
         client.on("message",function (topic, payload){
             console.log([topic,payload].join(": "))
-            $("#messages").append($('<li>').text(payload));
+            $("#messages").append($('<li>').text("mqtt: "+ payload));
             //client.end()
         });
         $(function () {
@@ -26,7 +26,7 @@ block content
                 return false;
             });
             socket.on('chat message', function(msg){
-            $('#messages').append($('<li>').text(msg));
+            $('#messages').append($('<li>').text("socketio: "+msg));
             client.publish("mqtt/ProjectKK",msg);
             });
         });
